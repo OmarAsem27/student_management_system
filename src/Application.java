@@ -5,7 +5,7 @@ public class Application {
 
     Scanner sc;
     StudentManager studentManager;
-    final int MAX_OPTIONS = 5;
+    final int MAX_OPTIONS = 6;
 
     Application() {
         this.studentManager = new StudentManager();
@@ -23,8 +23,9 @@ public class Application {
             System.out.println("1. Add student");
             System.out.println("2. Find student with ID");
             System.out.println("3. Update student");
-            System.out.println("4. Print all students");
-            System.out.println("5. Exit");
+            System.out.println("4. Delete student");
+            System.out.println("5. Print all students");
+            System.out.println("6. Exit");
 
             if (sc.hasNextInt()) {
                 inp = sc.nextInt();
@@ -51,8 +52,10 @@ public class Application {
         } else if (input == 3) {
             this.update();
         } else if (input == 4) {
-            this.printStudents();
+            this.delete();
         } else if (input == 5) {
+            this.printStudents();
+        } else if (input == 6) {
             this.exitApp();
         }
     }
@@ -214,7 +217,7 @@ public class Application {
         System.out.println("Enter the new name to update.");
         String name = this.sc.next();
         try {
-            this.studentManager.changeName(id, name);
+            this.studentManager.changeStudentName(id, name);
             System.out.println("Student name updated successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -235,7 +238,7 @@ public class Application {
             }
         }
         try {
-            this.studentManager.changeAge(id, age);
+            this.studentManager.changeStudentAge(id, age);
             System.out.println("Student age updated successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -246,11 +249,22 @@ public class Application {
         System.out.println("Enter the new grade to update.");
         String grade = this.sc.next();
         try {
-            this.studentManager.changeGrade(id, grade);
+            this.studentManager.changeStudentGrade(id, grade);
             System.out.println("Student grade updated successfully");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    private void delete() {
+        int inp = getValidInputId();
+        Student stu = this.studentManager.findStudentById(inp);
+
+        if (stu == null) {
+            System.out.println("Student not found");
+        }
+        this.studentManager.deleteStudent(stu);
+        System.out.println("Student deleted successfully");
+        this.collectUserInput();
     }
 }

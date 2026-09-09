@@ -27,19 +27,23 @@ public class StudentManager {
                 .orElse(null);
     }
 
-    public void changeName(int id, String name) throws Exception {
+    public void changeStudentName(int id, String name) throws Exception {
         Student student = this.findStudentById(id);
         student.setName(name);
     }
 
-    public void changeAge(int id, int age) throws Exception {
+    public void changeStudentAge(int id, int age) throws Exception {
         Student student = this.findStudentById(id);
         student.setAge(age);
     }
 
-    public void changeGrade(int id, String grade) throws Exception {
+    public void changeStudentGrade(int id, String grade) throws Exception {
         Student student = this.findStudentById(id);
         student.setGrade(grade);
+    }
+
+    public void deleteStudent(Student student) {
+        this.studentsList.remove(student);
     }
 
 }
