@@ -1,3 +1,9 @@
+# Java Student Management System — Technical & Architectural Documentation
+
+This document outlines the core domain design, object responsibilities, and key system use cases for the Java Student Management System.
+
+---
+
 # Objects responsibilities
 
 Application
