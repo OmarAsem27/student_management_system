@@ -16,6 +16,11 @@ public class Student {
         this.grade = grade;
     }
 
+    @Override
+    public String toString() {
+        return "Student [id: " + id + ", age: " + age + ", grade: " + grade + ", name: " + name + "]";
+    }
+
     private boolean validateName(String name) throws Exception {
         if (name.length() < 3 || !name.matches("^[a-zA-Z\\s]+$")) {
             throw new Exception("The name must be at least 3 characters long and does not contain any numbers.");

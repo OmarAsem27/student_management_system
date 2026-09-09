@@ -19,19 +19,20 @@ public class Application {
         while (!isInputValid) {
             System.out.println("\nplease, enter your wanted operation number between the following choices:");
             System.out.println("1. Add student");
-            System.out.println("2. Print all students");
-            System.out.println("3. Exit");
+            System.out.println("2. Find student with ID");
+            System.out.println("3. Print all students");
+            System.out.println("4. Exit");
 
             if (sc.hasNextInt()) {
                 inp = sc.nextInt();
 
-                if (inp >= 1 && inp <= 3) {
+                if (inp >= 1 && inp <= 4) {
                     isInputValid = true;
                 } else {
                     System.out.println("Invalid choice! Please enter a number between 1 and 3.");
                 }
             } else {
-                System.out.println("Invalid choice! Please enter a number between 1 and 3.");
+                System.out.println("Invalid choice!");
                 sc.next();
             }
         }
@@ -43,8 +44,10 @@ public class Application {
         if (input == 1) {
             this.AddStudent();
         } else if (input == 2) {
-            this.printStudents();
+            this.find();
         } else if (input == 3) {
+            this.printStudents();
+        } else if (input == 4) {
             this.exitApp();
         }
     }
@@ -95,5 +98,40 @@ public class Application {
     private void exitApp() {
         System.out.println("Thank you for using out application.");
         System.exit(0);
+    }
+
+    private void find() {
+        int inp = 0;
+        boolean isInputValid = false;
+
+        System.out.println("Enter the ID of the student.");
+        while (!isInputValid) {
+            /*
+             * Handling Bad Input: When the user enters a non-integer, the else block runs.
+             * It prints your error message and calls sc.next() to clear the invalid token
+             * from the scanner buffer so the program can ask again.
+             */
+            if (this.sc.hasNextInt()) {
+                inp = this.sc.nextInt();
+
+                if (inp < 0) {
+                    System.out.println("Invalid input.");
+                } else {
+                    isInputValid = true;
+                }
+            } else {
+                System.out.println("Invalid input, please try again.");
+                this.sc.next();
+            }
+        }
+        Student student = this.studentManager.findStudentById(inp);
+
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("\nStudent not found");
+        }
+
+        this.collectUserInput();
     }
 }

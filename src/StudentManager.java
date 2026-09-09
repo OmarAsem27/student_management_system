@@ -29,10 +29,15 @@ public class StudentManager {
                         this.studentsList.get(i).age,
                         this.studentsList.get(i).grade);
             }
-            System.out.println("\n");
         } else {
             System.out.println("no students were found.\n");
         }
     }
 
+    public Student findStudentById(int id) {
+        return this.studentsList.stream()
+                .filter(s -> s.id == id)
+                .findFirst()
+                .orElse(null);
+    }
 }
