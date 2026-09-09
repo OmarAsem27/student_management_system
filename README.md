@@ -1,28 +1,27 @@
 # Objects responsibilities
 
 Application
-├── interact with user
-├── collect input
-├── request operations
-├── present results
-└── delegate operations
+- interact with user
+- collect input
+- request operations
+- present results
+- delegate operations
 
 StudentManager
-├── create/register students
-├── manage student collection
-├── find students
-├── remove students
-├── list students
-├── ensure IDs are unique
-└── coordinate student-management operations
+- create/register students
+- manage student collection
+- find students
+- remove students
+- list students
+- ensure IDs are unique
+- coordinate student-management operations
 
 Student
-├── own its state
-├── maintain its own valid state
-├── change its name
-├── change its age
-└── change its grade
-
+- own its state
+- maintain its own valid state
+- change its name
+- change its age
+- change its grade
 ---
 
 # First use case:
