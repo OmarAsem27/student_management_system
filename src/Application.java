@@ -5,6 +5,7 @@ public class Application {
 
     Scanner sc;
     StudentManager studentManager;
+    final int MAX_OPTIONS = 5;
 
     Application() {
         this.studentManager = new StudentManager();
@@ -21,16 +22,17 @@ public class Application {
             System.out.println("\nplease, enter your wanted operation number between the following choices:");
             System.out.println("1. Add student");
             System.out.println("2. Find student with ID");
-            System.out.println("3. Print all students");
-            System.out.println("4. Exit");
+            System.out.println("3. Update student");
+            System.out.println("4. Print all students");
+            System.out.println("5. Exit");
 
             if (sc.hasNextInt()) {
                 inp = sc.nextInt();
 
-                if (inp >= 1 && inp <= 4) {
+                if (inp >= 1 && inp <= MAX_OPTIONS) {
                     isInputValid = true;
                 } else {
-                    System.out.println("Invalid choice! Please enter a number between 1 and 3.");
+                    System.out.printf("Invalid choice! Please enter a number between 1 and %d.%n", MAX_OPTIONS);
                 }
             } else {
                 System.out.println("Invalid choice!");
@@ -47,8 +49,10 @@ public class Application {
         } else if (input == 2) {
             this.find();
         } else if (input == 3) {
-            this.printStudents();
+            this.update();
         } else if (input == 4) {
+            this.printStudents();
+        } else if (input == 5) {
             this.exitApp();
         }
     }
@@ -117,6 +121,49 @@ public class Application {
     }
 
     private void find() {
+        int inp = this.getValidInputId();
+        Student student = this.studentManager.findStudentById(inp);
+
+        if (student != null) {
+            System.out.println(student);
+        } else {
+            System.out.println("\nStudent not found");
+        }
+
+        this.collectUserInput();
+    }
+
+    private void update() {
+        int inp = 0;
+        boolean isInputValid = false;
+        Student stu = null;
+        System.out.println("Enter the ID of the student...");
+        while (!isInputValid) {
+            if (this.sc.hasNextInt()) {
+                inp = this.sc.nextInt();
+                isInputValid = true;
+                stu = this.studentManager.findStudentById(inp);
+            }
+        }
+
+        if (stu != null) {
+            inp = this.getFeildToUpdate();
+        } else {
+            System.out.println("\nStudent not found");
+        }
+
+        if (inp == 1) {
+            this.updateStudentName(stu.id);
+        } else if (inp == 2) {
+            this.updateStudentAge(stu.id);
+        } else if (inp == 3) {
+            this.updateStudentGrade(stu.id);
+        }
+
+        this.collectUserInput();
+    }
+
+    private int getValidInputId() {
         int inp = 0;
         boolean isInputValid = false;
 
@@ -129,9 +176,29 @@ public class Application {
              */
             if (this.sc.hasNextInt()) {
                 inp = this.sc.nextInt();
+                isInputValid = true;
+            } else {
+                System.out.println("Invalid input, please try again.");
+                this.sc.next();
+            }
+        }
+        return inp;
+    }
+
+    private int getFeildToUpdate() {
+        int inp = 0;
+        boolean isInputValid = false;
+
+        System.out.println("Enter the number of the field you want to update.");
+        System.out.println("1.Name.");
+        System.out.println("2.Age.");
+        System.out.println("3.Grade.");
+        while (!isInputValid) {
+            if (this.sc.hasNextInt()) {
+                inp = this.sc.nextInt();
 
                 if (inp < 0) {
-                    System.out.println("Invalid input.");
+                    System.out.println("Invalid option number.");
                 } else {
                     isInputValid = true;
                 }
@@ -140,14 +207,50 @@ public class Application {
                 this.sc.next();
             }
         }
-        Student student = this.studentManager.findStudentById(inp);
+        return inp;
+    }
 
-        if (student != null) {
-            System.out.println(student);
-        } else {
-            System.out.println("\nStudent not found");
+    private void updateStudentName(int id) {
+        System.out.println("Enter the new name to update.");
+        String name = this.sc.next();
+        try {
+            this.studentManager.changeName(id, name);
+            System.out.println("Student name updated successfully");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void updateStudentAge(int id) {
+        System.out.println("Enter the new age to update.");
+        int age = 0;
+        boolean isInputValid = false;
+        while (!isInputValid) {
+            if (this.sc.hasNextInt()) {
+                age = this.sc.nextInt();
+                isInputValid = true;
+            } else {
+                System.out.println("Invalid input...");
+                this.sc.next();
+            }
+        }
+        try {
+            this.studentManager.changeAge(id, age);
+            System.out.println("Student age updated successfully");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void updateStudentGrade(int id) {
+        System.out.println("Enter the new grade to update.");
+        String grade = this.sc.next();
+        try {
+            this.studentManager.changeGrade(id, grade);
+            System.out.println("Student grade updated successfully");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
 
-        this.collectUserInput();
     }
 }

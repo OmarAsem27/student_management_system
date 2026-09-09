@@ -12,7 +12,7 @@ public class StudentManager {
             studentsList.add(student);
             this.nextStudentId++;
         } catch (Exception e) {
-            throw new Exception("\nFailed to create student: " + e.getMessage() + "\n");
+            throw new Exception("\nFailed to create student: " + e.getMessage());
         }
     }
 
@@ -26,4 +26,20 @@ public class StudentManager {
                 .findFirst()
                 .orElse(null);
     }
+
+    public void changeName(int id, String name) throws Exception {
+        Student student = this.findStudentById(id);
+        student.setName(name);
+    }
+
+    public void changeAge(int id, int age) throws Exception {
+        Student student = this.findStudentById(id);
+        student.setAge(age);
+    }
+
+    public void changeGrade(int id, String grade) throws Exception {
+        Student student = this.findStudentById(id);
+        student.setGrade(grade);
+    }
+
 }
