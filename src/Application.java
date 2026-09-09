@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -90,8 +91,23 @@ public class Application {
     }
 
     private void printStudents() {
-        studentManager.getAllStudents();
+        List<Student> students = studentManager.getAllStudents();
 
+        if (students.size() > 0) {
+            for (int i = 0; i < students.size(); i++) {
+
+                System.out.printf(
+                        "Student Number %d of %d: \nID is %d, name is %s, age is %s, grade is %s%n",
+                        i + 1,
+                        students.size(),
+                        students.get(i).id,
+                        students.get(i).name,
+                        students.get(i).age,
+                        students.get(i).grade);
+            }
+        } else {
+            System.out.println("no students were found.\n");
+        }
         this.collectUserInput();
     }
 

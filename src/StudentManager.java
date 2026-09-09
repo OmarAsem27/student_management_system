@@ -16,22 +16,8 @@ public class StudentManager {
         }
     }
 
-    public void getAllStudents() {
-        if (studentsList.size() > 0) {
-            for (int i = 0; i < this.studentsList.size(); i++) {
-
-                System.out.printf(
-                        "Student Number %d of %d: \nID is %d, name is %s, age is %s, grade is %s%n",
-                        i + 1,
-                        this.studentsList.size(),
-                        this.studentsList.get(i).id,
-                        this.studentsList.get(i).name,
-                        this.studentsList.get(i).age,
-                        this.studentsList.get(i).grade);
-            }
-        } else {
-            System.out.println("no students were found.\n");
-        }
+    public List<Student> getAllStudents() {
+        return this.studentsList;
     }
 
     public Student findStudentById(int id) {
