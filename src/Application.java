@@ -262,9 +262,10 @@ public class Application {
 
         if (stu == null) {
             System.out.println("Student not found");
+        } else {
+            this.studentManager.deleteStudent(stu);
+            System.out.println("Student deleted successfully");
         }
-        this.studentManager.deleteStudent(stu);
-        System.out.println("Student deleted successfully");
         this.collectUserInput();
     }
 }
